@@ -1,0 +1,4 @@
+this app was made for a game called "Content Warning" that allows the saving of videos created in the game
+the videos automatically save to the desktop
+this app moves them from desktop to a folder the .exe is in
+and renames them depending on their creation date YYYY-MM-DD-hh-mm-ss

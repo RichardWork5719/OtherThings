@@ -1,0 +1,2 @@
+cd = choose countdown feature (input how long you want to countdown for in: hours,mins,sec)
+sw = choose stopwatch feature (pressing [enter] once will start the timer and pressing [enter] again will stop the timer and print out the time it took between the first and second [ender] presses)

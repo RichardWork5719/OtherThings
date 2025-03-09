@@ -1,0 +1,2 @@
+launching the app the first time will create a .txt file with basic built in examples of what to put into that .txt file to then have the app launch
+each line is a new app
