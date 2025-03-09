@@ -1,0 +1,4 @@
+copy all the code from the main.cpp
+paste it into a CLion project (or anywhere, where you have the app pop up in an external console)
+run the program
+its a very sinple survival game ('W' 'A' 'S' 'D' for movement, 'eat' to eat cooked food, [enter] between each movement input, walk into objects to interact-with/chop/kill them)

@@ -1,0 +1,402 @@
+
+class Entity{
+protected:
+    int X;
+    int Y;
+    char SYMBOL;
+
+public:
+    Entity(int x, int y, char symbol){
+        X = x;
+        Y = y;
+        SYMBOL = symbol;
+    }
+
+    int getX(){
+        return X;
+    }
+    int getY(){
+        return Y;
+    }
+    char getSymbol(){
+        return SYMBOL;
+    }
+
+    void setX(int x){
+        X = x;
+    }
+    void setY(int y){
+        Y = y;
+    }
+
+    void MoveX(int x){
+        X += x;
+    }
+    void MoveY(int y){
+        Y += y;
+    }
+
+    void Interact(){
+        //Do nothing for now
+    }
+
+};
+
+
+class Map{
+private:
+
+    std::vector<Entity*> MAPENTITIES;
+
+    std::vector<std::vector<char>> MAP;//vector[50][20];
+
+public:
+    Map(int x, int y){
+        MAP = std::vector<std::vector<char>>(y, std::vector<char>(x, ' ')); //std::array<std::array<std::string, x>, y>; //std::vector<std::vector<std::string>>(x, std::vector<std::string>(y, ' '));
+
+        UpdateMap();
+    }
+    ~Map(){
+        for (int i = 0; i < MAPENTITIES.size(); ++i) {
+            delete MAPENTITIES.at(i);
+        }
+    }
+
+    char getCharAt(int x, int y){
+        return MAP.at(y).at(x);
+    }
+
+    void CleanMap(){
+        for (int y = 0; y < MAP.size(); y++) {
+            for (int x = 0; x < MAP.at(y).size(); x++) {
+                MAP.at(y).at(x) = NULL;
+            }
+        }
+    }
+    void WriteOutMap(){
+        for (int i = 0; i < MAPENTITIES.size(); ++i) {
+            int Xloc = MAPENTITIES.at(i)->getX();
+            int Yloc = MAPENTITIES.at(i)->getY();
+            char symb = MAPENTITIES.at(i)->getSymbol();
+
+            MAP.at(Yloc).at(Xloc) = symb;
+        }
+    }
+
+    void printMap(){
+        //system("cls"); // TODO: DELETE OR MOVE THIS LATER
+        for (int y = 0; y < MAP.size(); y++) {
+            for (int x = 0; x < MAP.at(y).size(); x++) {
+                if(MAP.at(y).at(x) != NULL){
+                    std::cout << MAP.at(y).at(x); // << setw(3) << MAP.at(row).at(column);
+                }
+                else{
+                    std::cout << "-"; // << setw(3) << '#';
+                }
+
+            }
+
+            std::cout << std::endl;
+        }
+        //system("echo press enter to proceed"); // TODO: DELETE THIS LATER
+        //system("pause > nul"); // TODO: MOVE THIS LATER
+    }
+
+    void UpdateMap(){
+        CleanMap();
+        WriteOutMap();
+    }
+
+    void UpdateAndPrint(){
+        UpdateMap();
+        printMap();
+    }
+
+    void GenerateMap(int amount, char entityCh){
+        for(int y = 0; y < MAP.size(); y++){
+            for(int x = 0; x < MAP.at(y).size(); ++x){
+                if(x == 0 || x == MAP.at(y).size()-1 || y == 0 || y == MAP.size()-1){
+                    CreateEntity(x, y, '#'); //MAP.at(y).at(x) = '#';
+                }
+            }
+        }
+        for (int i = 0; i < amount; i++) {
+            int x, y;
+            x = std::rand() % (MAP.at(0).size()-1) + 1;
+            y = std::rand() % (MAP.size()-1) + 1;
+
+            if(getCharAt(x, y) == NULL){
+                //std::cout << "X = " << x << std::endl;
+                //std::cout << "Y = " << y << std::endl;
+                CreateEntity(x, y, entityCh);
+            }
+            else{
+                i--;
+            }
+        }
+        UpdateMap();
+    }
+
+
+    void addExistingEntityToMap(Entity* target){
+        MAPENTITIES.push_back(target);
+
+        UpdateMap();
+    }
+    void CreateEntity(int x, int y, char symbol){
+        Entity* creation = new Entity(x, y, symbol);
+        addExistingEntityToMap(creation);
+
+        UpdateMap();
+    }
+
+    void DestroyEntityAt(int x, int y){
+        for (int i = 0; i < MAPENTITIES.size(); ++i) {
+            int Xloc = MAPENTITIES.at(i)->getX();
+            int Yloc = MAPENTITIES.at(i)->getY();
+            //char symb = MAPENTITIES.at(i)->getSymbol();
+            if(Xloc == x and Yloc == y){
+                auto target = MAPENTITIES.at(i);
+                delete target;
+                MAPENTITIES.erase(MAPENTITIES.begin() + (i));
+            }
+        }
+        UpdateMap();
+    }
+};
+
+
+class Player: public Entity{
+    float HP = 100;
+    float HUNGER = 100;
+
+    Map* CURRENTMAP;
+
+    std::vector<std::string> INVENTORY;
+
+public:
+    Player(int x, int y, char symbol, Map* currentMap): Entity(x, y, symbol){
+        CURRENTMAP = currentMap;
+    }
+
+    void Move(std::string direction){
+        HUNGER -= 1;
+        if(direction == "w"){
+            auto targetTile = CURRENTMAP->getCharAt(X, Y-1);
+            std::cout << "You walk into a tile with: " << targetTile << std::endl;
+            if(targetTile == NULL){
+                MoveY(-1);
+            }
+            else{
+                giveLoot(X, Y-1);
+            }
+        }
+        else if(direction == "s"){
+            auto targetTile = CURRENTMAP->getCharAt(X, Y+1);
+            std::cout << "You walk into a tile with: " << targetTile << std::endl;
+            if(targetTile == NULL){
+                MoveY(1);
+            }
+            else{
+                giveLoot(X, Y+1);
+            }
+        }
+        else if(direction == "a"){
+            auto targetTile = CURRENTMAP->getCharAt(X-1, Y);
+            std::cout << "You walk into a tile with: " << targetTile << std::endl;
+            if(targetTile == NULL){
+                MoveX(-1);
+            }
+            else{
+                giveLoot(X-1, Y);
+            }
+        }
+        else if(direction == "d"){
+            auto targetTile = CURRENTMAP->getCharAt(X+1, Y);
+            std::cout << "You walk into a tile with: " << targetTile << std::endl;
+            if(targetTile == NULL){
+                MoveX(1);
+            }
+            else{
+                giveLoot(X+1, Y);
+            }
+        }
+        else{
+            std::cout << "Unknown input: " << direction << std::endl;
+        }
+    }
+
+    void giveLoot(int x, int y){
+        if(CURRENTMAP->getCharAt(x, y) == 'T'){
+            CURRENTMAP->DestroyEntityAt(x, y);
+            INVENTORY.push_back("wood");
+        }
+        else if(CURRENTMAP->getCharAt(x, y) == 'C'){
+            CURRENTMAP->DestroyEntityAt(x, y);
+            INVENTORY.push_back("raw meat");
+        }
+        else if(CURRENTMAP->getCharAt(x, y) == '*'){
+            if(count(INVENTORY.begin(), INVENTORY.end(), "raw meat") > 0){
+                INVENTORY.erase(std::find(INVENTORY.begin(), INVENTORY.end(), "raw meat"));
+                INVENTORY.push_back("cooked meat");
+            }
+        }
+    }
+
+    void printInventory(){
+        std::cout << "Items in inventory: " << std::endl;
+        int wood = count(INVENTORY.begin(), INVENTORY.end(), "wood");
+        int rawMeat = count(INVENTORY.begin(), INVENTORY.end(), "raw meat");
+        int cookedMeat = count(INVENTORY.begin(), INVENTORY.end(), "cooked meat");
+        /*
+        for (int i = 0; i < INVENTORY.size(); ++i) {
+            if(INVENTORY.size() == i+1){
+                //std::cout << INVENTORY.at(i);
+            }
+            else{
+                //std::cout << INVENTORY.at(i) << ", ";
+            }
+        }
+        */
+        std::cout << "|Wood: " << wood;
+        std::cout << "|Raw Meat: " << rawMeat;
+        std::cout << "|Cooked Meat: " << cookedMeat;
+        std::cout << std::endl;
+    }
+
+    void Build(std::string structure, std::string direction){
+        if(structure == "fire"){
+            if(count(INVENTORY.begin(), INVENTORY.end(), "wood") >= 3){
+                INVENTORY.erase(std::find(INVENTORY.begin(), INVENTORY.end(), "wood"));
+                INVENTORY.erase(std::find(INVENTORY.begin(), INVENTORY.end(), "wood"));
+                INVENTORY.erase(std::find(INVENTORY.begin(), INVENTORY.end(), "wood"));
+                int x = X;
+                int y = Y;
+                Move(direction);
+                CURRENTMAP->CreateEntity(x, y, '*');
+            }
+            else{
+                std::cout << "You dont have enough wood" << std::endl;
+            }
+        }
+        else{
+            std::cout << "Invalid order" << structure << " " << direction << std::endl;
+        }
+    }
+
+    void Eat(){
+        if(count(INVENTORY.begin(), INVENTORY.end(), "cooked meat") > 0){
+            INVENTORY.erase(std::find(INVENTORY.begin(), INVENTORY.end(), "cooked meat"));
+            HUNGER += 20;
+            if(HUNGER > 100){
+                HUNGER = 100;
+            }
+        }
+        else{
+            std::cout << "You dont have any cooked food" << std::endl;
+        }
+    }
+
+    void printStats(){
+        std::cout << "HP = " << HP << std::endl;
+        std::cout << "Hunger = " << HUNGER << std::endl;
+        printInventory();
+    }
+};
+
+
+class Game{
+    bool RUNNING = false;
+
+public:
+    void StartGame(int x, int y){
+        RUNNING = true;
+
+        Map* map = new Map(x, y);
+        map->GenerateMap(10, 'T');
+        map->GenerateMap(10, 'C');
+        map->GenerateMap(10, 'E');
+
+        Player* THEPLAYER = new Player(int(x/2), int(y/2), 'P', map);
+        map->addExistingEntityToMap(THEPLAYER);
+
+        //map->CreateEntity(int(x/2), int(y/2)-1, 'N');
+        //map->CreateEntity(int(x/2), int(y/2)+1, 'S');
+        //map->CreateEntity(int(x/2)+1, int(y/2), 'E');
+        //map->CreateEntity(int(x/2)-1, int(y/2), 'W');
+
+        while(RUNNING){
+            //system("cls");
+            THEPLAYER->printStats();
+            map->UpdateAndPrint();
+            std::string input;
+            std::cout << "Command: ";
+            std::cin >> input;
+            system("cls");
+            if(input == "w" || input == "s" || input == "a" || input == "d"){
+                THEPLAYER->Move(input);
+            }
+            else if(input == "i" || input == "inv" || input == "inventory"){
+                THEPLAYER->printInventory();
+            }
+            else if(input == "fire"){
+                THEPLAYER->Build("fire", "w");
+            }
+            else if(input == "eat"){
+                THEPLAYER->Eat();
+            }
+            else if(input == "exit" || input == "quit"){
+                RUNNING = false;
+                std::cout << "Exiting..." << std::endl;
+            }
+
+            //system("pause > nul");
+            //system("cls");
+        }
+        ExitGame(map);
+    }
+
+    void ExitGame(Map* map){
+        delete map;
+    }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+int main(){
+    auto start = high_resolution_clock::now();
+
+    /*
+    for(int i = 0; i < 1000; i++){
+        cout << i << std::endl;
+    }
+    */
+    //Entity *Sheep = new Entity("Sheep");
+
+    //Sheep->printEntityInfo();
+
+
+
+    Game* game = new Game();
+
+    game->StartGame(50, 20);
+
+
+
+    auto stop = high_resolution_clock::now();
+    auto duration = duration_cast<milliseconds>(stop - start);
+    std::cout << "Time taken by function: " << duration.count()/1000 << " seconds or: " << duration.count() << " milliseconds";
+    system("pause > nul");
+    return 0;
+}
