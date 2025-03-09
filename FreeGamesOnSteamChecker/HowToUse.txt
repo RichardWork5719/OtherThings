@@ -1,6 +1,0 @@
-launch app
-the app should create a LastCheckedGames.txt if one doesnt exist
-it sends a request to the steam link that looks for games in special offers priced at 0.00$/£/euro
-it checks if the LastCheckedGames.txt has the same games as the games in the special offers
-if there are not matches it prints out the differences (prints out new free games) 
-else it just closes
