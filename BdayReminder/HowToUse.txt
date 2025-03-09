@@ -1,3 +1,0 @@
-stuff was hardcoded for personal reasons
-
-app requires a .csv file on the desktop called "Crowbar Gang Bdays List.csv"
