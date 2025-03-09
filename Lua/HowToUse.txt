@@ -1,0 +1,2 @@
+This was intended to be a mobile game where the user is supposed to hold down a finger on the screen for as long as possible and acumulate time
+unfortunately i had issues with the game engine i was making this in so i was unable to build it for mobile so it only forks for PC
