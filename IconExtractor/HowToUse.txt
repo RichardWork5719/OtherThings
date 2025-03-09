@@ -1,4 +1,0 @@
-run app
-type in full path of the .exe file of which you want to extract the icon of (you can also just drag and drop the .exe into the console window to paste the file path)
-press [ENTER]
-the app should create an icon.ico file with the desired image
