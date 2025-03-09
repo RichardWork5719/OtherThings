@@ -1,0 +1,13 @@
+-This is a website I made for me and my friends based on an inside joke we have (more details are in the "about" page)
+-index.html is the 'main' page for now (there are plans for a proper main page in the future)
+from index.html all the other pages are be accessible through hyperlinks as if navigating through a normal website
+
+-In index.html there is only one fully finished 'chapter' as a proof of concept
+more chapters will be worked on after more work on other website aspects/features
+-It also seems that the comic 'chapter' only seems to be the correct size for firefox browsers
+I haven't tested it on chrome browsers until very recently so this size problem is a fairly new discovery and a solution will be thought of after more work on other website aspects/features
+
+Disclaimer:
+-The comic page images are not made by me
+-the "Merch" and "Crowbar-chan is not useless (on Webtoons)" hyperlinks lead outside of the project to things I did not work on
+but I left them there since they are intended to be there

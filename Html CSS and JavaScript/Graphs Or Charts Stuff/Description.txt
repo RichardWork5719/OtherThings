@@ -1,0 +1,12 @@
+A very simple graph that has some randomly generated values every time the page is reloaded
+
+In a professional work space I would have made a separate CSS file with all the CSS in it
+for ease of acces for myself I have put the CSS inside the html
+
+The graph resets after the 3rd update/change
+this is a very crude solution to a problem I discovered
+I'm in the process of thinking of a solution 
+or at this point
+already in the process of thinking of a way to implement the solution
+
+update: better version in Graph2.0 folder

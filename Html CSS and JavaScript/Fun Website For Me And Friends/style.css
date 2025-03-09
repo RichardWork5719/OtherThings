@@ -1,0 +1,308 @@
+* {
+  color: rgba(255, 255, 255); /* white */
+  background: rgba(0, 0, 0, 0); /* black */
+  background-color: rgba(0, 0, 0, 0); /* black */
+
+  font-family: 'Open Sans', sans-serif; /* font-family: "Times New Roman", serif; // seems to be default */
+}
+
+body {
+    background-image: linear-gradient(rgba(4,9,30,0.7),rgba(4,9,30,0.7)),url(images/Sky.png);
+    /*
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    */
+}
+
+.header {
+    min-height: 5vh; /* 5vh; */
+	width: 100%;
+	background-position: center;
+	background-size: cover;
+	position: relative;
+	outline: 1px solid rgb(255, 255, 255);
+	background-color: rgba(0, 0, 0, 0.5);
+}
+
+.logo {
+    height: auto;
+    width: 200;
+}
+/* Top Navigation Bar ======================================================================================================================*/
+nav {
+	display: flex;
+	padding: 0.25% 0.25%; /*2% 6%;*/
+	justify-content: flex-end; /*space-between;*/
+	align-items: center;
+}
+
+.nav-links {
+	flex: 1;
+	text-align: right;
+}
+
+.nav-links ul li {
+	list-style: none;
+	display: inline-block;  /*flex-end;*/  /*inline-block;*/
+	padding: 8px 12px;
+	position: relative;
+}
+
+.nav-links ul li a {
+	color: #ffffff;
+	text-decoration: none;
+	font-size: 13px;
+}
+
+.nav-links ul li::after { /* this is the under-line that appears under the text when hovered over */
+	content: '';
+	width: 0%;
+	height: 2px;
+	background: #ffffff;
+	display: block;
+	margin: auto;
+	transition: 0.5s;
+}
+
+.nav-links ul li:hover::after { /* this is how much the under-line stretches under the text */
+	width: 100% /*100%;*/
+}
+/* ^Top Navigation Bar^ ======================================================================================================================*/
+
+/* Chapter List MK2 ======================================================================================================================*/
+.headers {
+    color: #ffffff;
+    position: flex-center;
+    text-align: center;
+    display: flex-center;
+}
+
+.name-of-comic-header {
+    color: #ffffff;
+    display: flex-center;
+}
+
+.chapters-header {
+    color: #ffffff;
+    display: flex-center;
+}
+
+
+.chapter-list {
+    display: flex-center;
+    position: flex-center;
+    flex-direction: column;
+    outline: 1px solid rgb(100, 100, 100);
+}
+
+.chapter {
+    display: inline-flex;
+    width: 100%;
+    outline: 1px solid rgb(100, 100, 100);
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.chapter-thumbnail {
+    display: center;
+    margin: 5px;
+}
+
+.chapter-thumbnail img {
+    display: flex;
+    outline: 1px solid rgb(0, 0, 0);
+}
+
+.chapter-thumbnail-link {
+    text-align: center;
+    display: center;
+    position: center;
+    width: 0;
+    height: 0;
+}
+
+.chapter-number {
+    text-align: center;
+    display: center;
+    margin-top: auto;
+    margin-bottom: auto;
+    width: 2%;
+}
+
+.chapter-name {
+    text-align: center;
+    display: center;
+    margin-top: auto;
+    margin-bottom: auto;
+    width: 80%;
+    height: auto;
+}
+
+.read-chapter-checkbox {
+    text-align: right;
+    display: right;
+    margin-top: auto;
+    margin-bottom: auto;
+    width: 4%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ^Chapter List MK2^ ======================================================================================================================*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Chapter List ======================================================================================================================*/
+/*
+.headers {
+    color: #ffffff;
+    position: flex-center;
+    text-align: center;
+    display:flex-center;
+}
+
+.name-of-comic-header {
+    color: #ffffff;
+    display:flex-center;
+}
+
+.chapters-header {
+    color: #ffffff;
+    display:flex-center;
+}
+
+.table-chapter-list table {
+    position: flex-center;
+    display: flex-center;
+}
+
+.chapter {
+    outline: 3px solid rgb(100, 100, 100);
+}
+
+.chapter-thumbnail {
+    height: auto;
+    width: 200;
+}
+
+.chapter-link {
+    width: 0;
+    height: 0;
+}
+
+.chapter-thumbnail-image {
+    height: auto;
+    width: 200;
+    display: flex;
+
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+.chapter-number {
+    text-align: center;
+    width: 5vh;
+    outline: 1px solid rgb(100, 100, 100);
+}
+
+.chapter-name {
+    text-align: left;
+    display: flex-center;
+}
+
+.read-checkbox {
+    position: right;
+    text-align: center;
+    width: 8vh;
+    outline: 1px solid rgb(100, 100, 100);
+}
+*/
+/* ^Chapter List^ ======================================================================================================================*/

@@ -1,0 +1,112 @@
+<!doctype html> <!-- https://www.theodinproject.com/lessons/foundations-html-boilerplate (a pretty important one with images and directories[parent directory selection and image stuff]: https://www.theodinproject.com/lessons/foundations-links-and-images) -->
+<!-- Basically to sum up any shit i put here will be heavily relying on the links ^above^ so im sorry future me but youre gonna have to scroll through that page to find how the fuck i did all this -->
+<!-- and the javascript that saves and loads the checkboxes is from here: https://stackoverflow.com/questions/17186079/saving-checkbox-state-in-html-or-javascript -->
+<html>
+
+<head>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <title>Crowbar Gang - Crowbar-chan Chapters</title> <!-- Theres no cock like horse cock! -->
+    <script>
+        function save() {
+            for (i = 0; i < checkboxes.length; i++) {
+                localStorage.setItem(checkboxes[i].value, checkboxes[i].checked);
+            }
+        }
+        
+        function load_() {
+            for (i = 0; i < checkboxes.length; i++) {
+                checkboxes[i].checked = localStorage.getItem(checkboxes[i].value) === 'true' ? true:false;
+            }
+        }
+        
+        var x = 1;
+    </script>
+</head>
+
+<body style="background-color:black;" text="white">
+    <section class="header">
+        <nav>
+            <a href="index.html"><img class="logo" src="images/crowbar_gang_logo_white2.png" alt="Crowbar Gang Logo" height="50" width="200"></a>
+            <div class="nav-links">
+                <ul>
+                    <li><strong><a href="about.html">About page or whatever</a></strong> </li>
+                    <li><strong><a href="https://shop.spreadshirt.com/crowbar-gang-store/">Merch</a></strong> </li>
+                    <li><strong><a href="https://www.webtoons.com/en/canvas/crowbar-chan-is-not-useless/list?title_no=590583" target="_blank" rel="noopener noreferrer">Crowbar-chan is not useless (on Webtoons)</a></strong></li>
+                    
+                </ul>
+            </div>
+        </nav>
+    </section>
+    
+    <div class="headers">
+        <h1 class="name-of-comic-header">Crowbar-chan is not useless</h1>
+        <h1 class="chapters-header">Chapters (by Karmaki)</h1>
+    </div>
+
+    <div class="chapter-list">
+        <div class="chapter">
+            <div class="chapter-thumbnail"><a href="chapters/chapter1.html" class="chapter-thumbnail-link"><img class="chapter-thumbnail-image" src="images/chapter-images/chapter1/5.png" alt="chapter-thumbnail" height="auto" width="200"></a></div>
+            <div class="chapter-number"><a href="chapters/chapter1.html">#<script>document.write(x)</script></a></div>
+            <div class="chapter-name"><a href="chapters/chapter1.html">Chapter #<script>document.write(x++)</script></a></div>
+            <div class="read-chapter-checkbox">Read<input onclick="save()" type="checkbox" name="chaptersread[]" value="readChapter1"></div>
+        </div>
+        <div class="chapter">
+            <div class="chapter-thumbnail"><a href="chapters/chapter2.html"><img class="chapter-thumbnail-image" src="images/chapter-images/chapter1/5.png" alt="chapter-thumbnail" height="auto" width="200"></a></div>
+            <div class="chapter-number"><a href="chapters/chapter2.html">#<script>document.write(x)</script></a></div>
+            <div class="chapter-name"><a href="chapters/chapter2.html">Chapter #<script>document.write(x++)</script></a></div>
+            <div class="read-chapter-checkbox">Read<input onclick="save()" type="checkbox" name="chaptersread[]" value="readChapter2"></div>
+        </div>
+    </div>
+    
+    
+    <!--
+    <div class="chapter-list">
+        <div class="chapter">
+            <div class="chapter-thumbnail"><img class="chapter-thumbnail-image" src="images/chapter-images/chapter1/5.png" alt="chapter-thumbnail" height="auto" width="200"></div>
+            <div class="chapter-number">#1</div>
+            <div class="chapter-name">Chapter #1</div>
+            <div class="read-checkbox">Read<input type="checkbox" name="chaptersread[]" value="readChapter1"></div>
+        </div>
+    </div>
+    -->
+    <!--<input class="chapter-button" type="button"><a class="chapter-link" href="chapters/chapter1.html"></a>-->
+    <!--
+    <table class="table-chapter-list">
+        <thead>
+        
+        </thead>
+        
+        <tbody>
+            
+            <tr class="chapter">
+                <td class="chapter-thumbnail"><img class="chapter-thumbnail-image" src="images/chapter-images/chapter1/5.png" alt="chapter-thumbnail" height="auto" width="200"></td>
+                <td class="chapter-number">#1</td>
+                <td class="chapter-name"><a href="chapters/chapter1.html">Chapter #1 name</a></td>
+                <td class="read-checkbox">Read<input type="checkbox" name="chaptersread[]" value="readChapter1"></td>
+            </tr>
+            <tr class="chapter">
+                <td class="chapter-thumbnail"><img class="chapter-thumbnail-image" src="images/chapter-images/chapter1/5.png" alt="chapter-thumbnail" height="auto" width="200"></td>
+                <td class="chapter-number">#1</td>
+                <td class="chapter-name">eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee</td>
+                <td class="read-checkbox">Read<input type="checkbox" name="chaptersread[]" value="readChapter1"></td>
+            </tr>
+            <tr class="chapter">
+                <td class="chapter-thumbnail"><img class="chapter-thumbnail-image" src="images/chapter-images/chapter1/5.png" alt="chapter-thumbnail" height="auto" width="200"></td>
+                <td class="chapter-number">#2</td>
+                <td class="chapter-name">Chapter #2 name</td>
+                <td class="read-checkbox">Read<input type="checkbox" name="chaptersread[]" value="readChapter2"></td>
+            </tr>
+        </tbody>
+    </table>
+    -->
+    
+    <div style="text-align: center; margin-top: 5px;">[ <a href="#pagetop">Return to Top</a> ]</div>
+
+    <script>
+        var i, checkboxes = document.querySelectorAll('input[type=checkbox]');
+        load_();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,153 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="Chart.js"></script>
+    <script src="values.js"></script>
+    <title>Graph 2.0</title>
+    <style>
+        * {
+            color: rgba(255, 255, 255); /* white */
+            background: rgba(0, 0, 0, 0); /* black */
+            background-color: rgba(0, 0, 0, 0); /* black */
+        
+            font-family: 'Open Sans', sans-serif; /* font-family: "Times New Roman", serif; // seems to be default */
+        }
+    </style>
+    <script>
+        //
+        //==============================================================================================================================================================================================================
+        // GRAPH 2.0 SHIT
+        //==============================================================================================================================================================================================================
+        
+        function SetupGraphRanges()
+        {
+            document.getElementById("data_from").max = xValues.length;
+            document.getElementById("data_to").max = xValues.length;
+        }
+        
+        function SetGraphRangeToMax()
+        {
+            document.getElementById("data_from").value = 0;
+            document.getElementById("data_to").value = xValues.length;
+            
+            // also probably update graph cuz its not gonna change it or maybe put it into the actual html button
+        }
+        
+        function DebugGraphColor()
+        {
+            console.log('Dot color: ' + document.getElementById('dot_color').value);
+            console.log('Line color: ' + document.getElementById('line_color').value);
+            
+            document.getElementById("dot_color_value").innerHTML = document.getElementById('dot_color').value;
+            document.getElementById("line_color_value").innerHTML = document.getElementById('line_color').value;
+        }
+        
+        function DebugGraphRange()
+        {
+            console.log('From: ' + document.getElementById('data_from').value);
+            console.log('To: ' + document.getElementById('data_to').value);
+            
+            document.getElementById("data_from_value").innerHTML = document.getElementById('data_from').value;
+            document.getElementById("data_to_value").innerHTML = document.getElementById('data_to').value;
+        }
+        
+        function DebugGraphInfo()
+        {
+            console.log();
+            DebugGraphColor();
+            DebugGraphRange();
+        }
+        
+        function CreateGraph()
+        {
+            var from_value = document.getElementById("data_from").value;
+            var to_value = document.getElementById("data_to").value;
+        
+            return new Chart("myChart", {
+              type: "line",
+              data: {
+                labels: xValues.slice(from_value, to_value),                                                            // imported from values.js // also the .slice is basically the python xValues[3:6] here you take all the items from index 3 to 6 and makes a new list of it
+                datasets: [{
+                  fill: false,
+                  lineTension: 0,
+                  backgroundColor: document.getElementById('dot_color').value,                                          // dot color
+                  borderColor: document.getElementById('line_color').value,                                             // line color
+                  data: yValues.slice(from_value, to_value)                                                             // imported from values.js // also the .slice is basically the python yValues[3:6] here you take all the items from index 3 to 6 and makes a new list of it
+                }]
+              },
+              options: {
+                legend: {display: false},
+                //scales: { // this is good when you want to set a fixed number height on a graph but in my case ill let the graph adjust by itself
+                //  yAxes: [{ticks: {min: 0, max:11}}],
+                //}
+              }
+            });
+        }
+        
+        function UpdateGraph() // just basically delete the <canvas> and then re-add it back (it will be empty) and then call the CreateGraph() command again
+        {
+            var canvasShit = "<canvas id=" + "\"myChart\"" + " style=" + "\"width:100%;max-width:100%;margin-top:10px;\"" + "></canvas>";
+            //console.log(canvasShit);
+            
+            document.getElementById("graph_section").innerHTML = "";
+            document.getElementById("graph_section").innerHTML = canvasShit;
+            
+            return CreateGraph();
+            
+            // ========================================================================================================================================================================================================
+            //delete graph and return a newly created one... doesnt work... fuck...
+            //graph = null;
+            //delete graph;
+            //document.getElementById("myChart").id = "myChart_";
+            //graph.clear();
+            
+            //document.getElementById("graph_section").innerHTML += "<canvas id=";
+            //document.getElementById("graph_section").innerHTML += "\"myChart\"";
+            //document.getElementById("graph_section").innerHTML += " style=";
+            //document.getElementById("graph_section").innerHTML += "\"width:100%;max-width:100%;margin-top:10px;\"";
+            //document.getElementById("graph_section").innerHTML += "></canvas>";
+            
+            //graph.update();
+            // ========================================================================================================================================================================================================
+        }
+    </script>
+</head>
+
+<body style="background-color:black;" text="white">
+
+    <div class="chart_testing" style="margin-top: 15px;">
+        <script async>
+            //window.document.title = "aids";
+        </script>
+        
+        <div id="graph_section">
+            <canvas id="myChart" style="width:100%;max-width:100%;margin-top:10px;"></canvas>
+        </div>
+        
+        Dot color: <input type="color" id="dot_color" onchange="graphyboi = UpdateGraph();" value="#0000ff">                         <p id="dot_color_value" style="margin: 0px;margin-top:-15px;color: rgba(0, 0, 0, 0);"></p><br>
+        Line color: <input type="color" id="line_color" onchange="graphyboi = UpdateGraph();" value="#0000ff">                       <p id="line_color_value" style="margin: 0px;margin-top:-15px;color: rgba(0, 0, 0, 0);"></p><br>
+        Data from: <input type="number" id="data_from" onchange="graphyboi = UpdateGraph();" min="0" max="100" value="0">            <p id="data_from_value" style="margin: 0px;margin-top:-15px;color: rgba(0, 0, 0, 0);"></p><br>
+        Data to: <input type="number" id="data_to" onchange="graphyboi = UpdateGraph();" min="0" max="100" value="100000">           <p id="data_to_value" style="margin: 0px;margin-top:-15px;color: rgba(0, 0, 0, 0);"></p><br>
+        <input type="submit" onclick="SetGraphRangeToMax()" value="Reset">
+        
+        
+        <script async>
+            SetupGraphRanges();
+            
+            if(localStorage.firstload == null)
+            {
+                console.log("First page load detected");
+                SetGraphRangeToMax();
+                //localStorage.firstload = 1;
+            }
+            
+            var graphyboi = CreateGraph();
+        </script>
+    </div>
+
+</body>
+
+</html>

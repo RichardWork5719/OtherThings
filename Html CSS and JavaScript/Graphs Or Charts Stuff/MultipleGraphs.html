@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+    <!--<script src="GetClickedTile.js"></script>--><!-- doesnt work -->
+    <title>More Graphs!</title>
+    <!--<link rel="icon" type="image/x-icon" href="images/change_this_for_custom_icon_filename.ico">-->
+    <style>
+        * {
+            color: rgba(255, 255, 255); /* white */
+            background: rgba(0, 0, 0, 0); /* black */
+            background-color: rgba(0, 0, 0, 0); /* black */
+            
+            margin: 0;
+        
+            font-family: 'Open Sans', sans-serif; /* font-family: "Times New Roman", serif; // seems to be default */
+        }
+        
+        .window1
+        {
+            float:left;
+            border-right-width: 1px;
+            border-right-style: solid;
+        }
+        
+        .window2
+        {
+            float:right;
+            border-left-width: 1px;
+            border-left-style: solid;
+        }
+    </style>
+    <script>
+        var x = 0;
+    </script>
+</head>
+
+<body style="background-color:black;" text="white">
+    <!--<div style="text-align:center;margin-bottom:-10%;">
+        <h6>Graphs!</h6>
+        <h6>Graphs everywhere!</h6>
+    </div>-->
+
+    <div class="window1">
+        Graph <script>document.write(x++)</script><br>
+        <iframe width="900" height="450"
+                src="Graph.html"
+                title="Stuff"
+                frameborder="0"
+                allowfullscreen>
+        </iframe>
+    </div>
+    
+    <div class="window2">
+        Graph <script>document.write(x++)</script><br>
+        <iframe width="900" height="450"
+                src="Graph.html"
+                title="Stuff"
+                frameborder="0"
+                allowfullscreen>
+        </iframe>
+    </div>
+    
+    <div class="window1">
+        Graph <script>document.write(x++)</script><br>
+        <iframe width="900" height="450"
+                src="Graph.html"
+                title="Stuff"
+                frameborder="0"
+                allowfullscreen>
+        </iframe>
+    </div>
+    
+    <div class="window2">
+        Graph <script>document.write(x++)</script><br>
+        <iframe width="900" height="450"
+                src="Graph.html"
+                title="Stuff"
+                frameborder="0"
+                allowfullscreen>
+        </iframe>
+    </div>
+</body>
+
+</html>
